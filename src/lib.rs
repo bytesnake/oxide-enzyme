@@ -1,7 +1,4 @@
-//extern crate llvm_sys;
-//
-
-mod parser;
+//mod parser;
 
 use std::ptr;
 use std::process;
@@ -15,7 +12,7 @@ use llvm_sys::target::LLVM_InitializeNativeTarget;
 
 pub fn pre_processing() {
     process::Command::new("/usr/bin/rustc")
-        .args(&["--emit=obj", "--emit=llvm-bc",  "src/main.rs", "-C debuginfo=2"])
+        .args(&["--emit=obj", "--emit=llvm-bc",  "src/main.rs", "-C", "debuginfo=2"])
         .output()
         .expect("failed to run cargo");
 }
@@ -65,6 +62,6 @@ pub unsafe fn load_llvm() {
 
 pub fn build() {
     pre_processing();
-    parser::parse();
+    //parser::parse();
     unsafe {load_llvm();}
 }
